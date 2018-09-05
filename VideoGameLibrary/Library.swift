@@ -11,18 +11,31 @@ import Foundation
 // This class will handle storing our array of Games. It will also handle all the interactions with that array.
 class Library {
     // An array of Game objects that will be handled by this class
-    private var gameArray: [Game] = [Game(title: "Mario Kart"), Game(title: "Fruit Ninja"), Game(title: "EA Sports UFC"), Game(title: "Worms")]
+    private var gameArray: [Game] = [
+        Game(title: "Mario Kart"),
+        Game(title: "Fruit Ninja"),
+        Game(title: "EA Sports UFC"),
+        Game(title: "Worms")]
     
     //MARK:- Functions
     
     func addGame() {
+        print("Please enter password: ")
+        
+        var enteredPassword = readLine()
+        
+        while enteredPassword != "Wendy" {
+            print("Incorrect password")
+            enteredPassword = readLine()
+        }
+        
         // When we make a new game, we need a title for the game.
         // Prompt the user to enter in the title for the new game.
         print("Please enter the title of the game: ")
         // We need to be able to get user input for the title.
         var newGameTitle = readLine()
         
-        // We need to add input validation to make sure that the newGameTItle ins't nil or an empty string
+        // We need to add input validation to make sure that the newGameTitle isn't nil or an empty string
         while newGameTitle == nil || newGameTitle == "" {
             print("Invalid title, please try again: ")
             newGameTitle = readLine()
@@ -40,6 +53,15 @@ class Library {
     }
     
     func removeGame() {
+        print("Please enter password: ")
+        
+        var enteredPassword = readLine()
+        
+        while enteredPassword != "Wendy" {
+            print("Incorrect password")
+            enteredPassword = readLine()
+        }
+        
         // We need to go through our array and list out the title of the game as well as it's index. The user can then enter an index and we'll remove the game at that index.
         for index in 0..<gameArray.count { // Go through each index in the gameArray. Since arrays start at index 0, our indexes will go from 0 to 1 less than the number of elements in the array
             print("\(index). \(gameArray[index].title)")
@@ -90,8 +112,12 @@ class Library {
         
         // We also need to set the due date for the game.
         for index in 0..<gameArray.count {
-            print("\(index). \(gameArray[index].title)")
+            if gameArray[index].checkedIn {
+                print("\(index). \(gameArray[index].title)")
+                
+            }
         }
+        
         print("Please enter the index of the game you wish to check out: ")
         
         var userInput = Int(readLine()!)
@@ -116,23 +142,25 @@ class Library {
     
     func checkGameIn() {
         for index in 0..<gameArray.count {
-            print("\(index). \(gameArray[index].title)")
-            
-            print("Please enter the index of the game you wish to check in: ")
-            
-            var userInput = Int(readLine()!)
-            
-            // If user has entered something that can't be converted to an Int, make them put in more input
-            while userInput == nil {
-                print("Invalid input. Please enter a usable index.")
-                userInput = Int(readLine()!)
+            if gameArray[index].checkedIn == false {
+                print("\(index). \(gameArray[index].title)")
             }
-            gameArray[userInput!].checkedIn = true
-            
-            gameArray[userInput!].dueDate = nil // Since the game is checked in, we don't need a due date anymore, so set this equal to nil
         }
+        print("Please enter the index of the game you wish to check in: ")
+        
+        var userInput = Int(readLine()!)
+        
+        // If user has entered something that can't be converted to an Int, make them put in more input
+        while userInput == nil {
+            print("Invalid input. Please enter a usable index.")
+            userInput = Int(readLine()!)
+        }
+        gameArray[userInput!].checkedIn = true
+        
+        gameArray[userInput!].dueDate = nil // Since the game is checked in, we don't need a due date anymore, so set this equal to nil
     }
 }
+
 
 
 
