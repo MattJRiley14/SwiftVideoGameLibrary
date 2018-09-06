@@ -26,7 +26,6 @@ import Foundation
 // 2. Select options & run
 // 3. Accept & validate input
 
-
 class Menu {
     var shouldQuit = false
     
@@ -98,8 +97,15 @@ class Menu {
     }
     
     func quit() {
-        shouldQuit = true
-        print("Thanks for using the video game library")
+        print("Are you sure you would like to quit? Y or N?")
+        let input = readLine()!
+        
+        if input.lowercased() == "y" {
+            shouldQuit = true
+            print("Thanks for using the video game library")
+        } else if input.lowercased() != "y" {
+            go()
+        }
     }
     
     func validateInput(_ input: String) -> Bool {

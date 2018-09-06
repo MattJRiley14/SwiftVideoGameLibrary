@@ -24,7 +24,7 @@ class Library {
         
         var enteredPassword = readLine()
         
-        while enteredPassword != "Wendy" {
+        while enteredPassword != "Izaak" {
             print("Incorrect password")
             enteredPassword = readLine()
         }
@@ -57,7 +57,7 @@ class Library {
         
         var enteredPassword = readLine()
         
-        while enteredPassword != "Wendy" {
+        while enteredPassword != "Christian" {
             print("Incorrect password")
             enteredPassword = readLine()
         }
@@ -79,10 +79,28 @@ class Library {
         gameArray.remove(at: userInput!)
     }
     
+    func getAvailableGames() -> [Game] {
+        var availableGames = [Game]()
+        
+        for game in gameArray {
+            if game.checkedIn {
+                availableGames.append(game)
+            }
+        }
+        return availableGames
+    }
+    
     func listAvailableGames() {
         //We need to go through our gameArray, and check to see if each game is checked out or not. If it isn't, print out the title of the game.
         
         //        gameArray[0].checkedIn = false // This will check out the first game in the array for testing
+        
+        // 0. Get available games
+        let availableGames = getAvailableGames()
+        
+        if availableGames.count == 0 {
+            print("There are currently no games available for checkout.")
+        }
         
         for game in gameArray {
             if game.checkedIn {
@@ -91,9 +109,26 @@ class Library {
         }
     }
     
+    func getUnavailableGames() -> [Game] {
+        var unavailableGames = [Game]()
+        
+        for game in gameArray {
+            if game.checkedIn == false {
+                unavailableGames.append(game)
+            }
+        }
+        return unavailableGames
+    }
+    
     func listUnavailableGames() {
         //We need to go through our gameArray, and check to see if each game is checked out or not. If it is, print out the title of the game.
         //        gameArray[0].checkedIn = false // This will check out the first game in the array for testing
+        
+        let unavailableGames = getUnavailableGames()
+        
+        if unavailableGames.count == 0 {
+            print("There are currently no games checked out.")
+        }
         
         for game in gameArray {
             if !game.checkedIn {
@@ -107,17 +142,6 @@ class Library {
         }
     }
     
-    func getAvailableGames() -> [Game] {
-        var availableGames = [Game]()
-        
-        for game in gameArray {
-            if game.checkedIn {
-                availableGames.append(game)
-            }
-        }
-        return availableGames
-    }
-    
     
     func checkGameOut() {
         //We need to go through our gameArray, list out each game and its index, and take user input for which game they want to check out.
@@ -125,105 +149,101 @@ class Library {
         // 0. Get available games
         let availableGames = getAvailableGames()
         
-        // 1. Print out available games. We also need to set the due date for the game.
-        for index in 0..<availableGames.count {
-            print("\(index). \(availableGames[index].title)")
-        }
-        
-        // 2. Ask the user for the index of the game to check out.
-        print("Please enter the index of the game you wish to check out: ")
-        
-        // 3. Getting user input
-        var index: Int? = nil
-        
-        
-        // 4. Validate user input
-        repeat {
-            // 1. Get user input
-            var userInput = Int(readLine()!)
+        if availableGames.count == 0 {
+            print("Sorry, but there are currently no games available for checkout.")
+        } else {
             
-            // 2. Validate user input is an Int
-            while userInput == nil {
-                print("Invalid input. Please enter a valid index.")
-                userInput = Int(readLine()!)
+            // 1. Print out available games. We also need to set the due date for the game.
+            for index in 0..<availableGames.count {
+                print("\(index). \(availableGames[index].title)")
             }
             
-            // 3. Validate user input is within array bounds.
-            if userInput! >= 0 && userInput! < availableGames.count {
-                // If input is valid, set index equal to user input.
-                index = userInput!
-            } else {
-                // If input is not valid, tell the user and let the while loop continue.
-                print("Invalid input. Please enter a valid index.")
-            }
-        } while index == nil
-        
-        // 5. Check game in.
-        
-        availableGames[index!].checkedIn = false
-        
-        // We also need to set the due date for the game.
-        let currentCalendar = Calendar.current // This gets the currect calendar for the user
-        let dueDate = currentCalendar.date(byAdding: .day, value: 14, to: Date()) // This generates a new Date object 2 weeks in the future by adding 14 days to the currect date
-        
-        gameArray[index!].dueDate = dueDate // Set the due date of the game being checked out to the new date 2 weeks in the future
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        print("This game is due back by: \(dateFormatter.string(from: dueDate!))")
-    }
-    
-    
-    func getUnavailableGames() -> [Game] {
-        var unavailableGames = [Game]()
-        
-        for game in gameArray {
-            if game.checkedIn == false {
-                unavailableGames.append(game)
-            }
+            // 2. Ask the user for the index of the game to check out.
+            print("Please enter the index of the game you wish to check out: ")
+            
+            // 3. Getting user input
+            var index: Int? = nil
+            
+            // 4. Validate user input
+            repeat {
+                // 1. Get user input
+                var userInput = Int(readLine()!)
+                
+                // 2. Validate user input is an Int
+                while userInput == nil {
+                    print("Invalid input. Please enter a valid index.")
+                    userInput = Int(readLine()!)
+                }
+                
+                // 3. Validate user input is within array bounds.
+                if userInput! >= 0 && userInput! < availableGames.count {
+                    // If input is valid, set index equal to user input.
+                    index = userInput!
+                } else {
+                    // If input is not valid, tell the user and let the while loop continue.
+                    print("Invalid input. Please enter a valid index.")
+                }
+            } while index == nil
+            
+            // 5. Check game in.
+            
+            availableGames[index!].checkedIn = false
+            
+            // We also need to set the due date for the game.
+            let currentCalendar = Calendar.current // This gets the currect calendar for the user
+            let dueDate = currentCalendar.date(byAdding: .day, value: 14, to: Date()) // This generates a new Date object 2 weeks in the future by adding 14 days to the currect date
+            
+            gameArray[index!].dueDate = dueDate // Set the due date of the game being checked out to the new date 2 weeks in the future
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/dd/yyyy"
+            print("This game is due back by: \(dateFormatter.string(from: dueDate!))")
         }
-        
-        return unavailableGames
     }
-    
     
     func checkGameIn() {
         
         let unavailableGames = getUnavailableGames()
         
-        for index in 0..<unavailableGames.count {
-            print("\(index). \(unavailableGames[index].title)")
-        }
-        
-        // Ask the user for the index of the game to check in.
-        print("Please enter the index of the game you wish to check in: ")
-        
-        var index: Int? = nil
-        
-        repeat {
-            // Ge the input from the user and validate it.
-            var userInput = Int(readLine()!)
+        if unavailableGames.count == 0 {
+            print("Sorry, but there are currently no games checked out.")
+        } else {
             
-            // If user has entered something that can't be converted to an Int, make them put in more input
-            while userInput == nil {
-                print("Invalid input. Please enter a usable index.")
-                userInput = Int(readLine()!)
+            for index in 0..<unavailableGames.count {
+                print("\(index). \(unavailableGames[index].title)")
             }
-            // 3. Validate user input is within array bounds.
-            if userInput! >= 0 && userInput! < unavailableGames.count {
-                // If input is valid, set index equal to user input.
-                index = userInput!
-            } else {
-                // If input is not valid, tell the user and let the while loop continue.
-                print("Invalid input. Please enter a valid index.")
-            }
-        } while index == nil
-        
-        
-        // Check the selected game in.
-        unavailableGames[index!].checkedIn = true
-
-        unavailableGames[index!].dueDate = nil // Since the game is checked in, we don't need a due date anymore, so set this equal to nil
+            
+            // Ask the user for the index of the game to check in.
+            print("Please enter the index of the game you wish to check in: ")
+            
+            var index: Int? = nil
+            
+            repeat {
+                // Ge the input from the user and validate it.
+                var userInput = Int(readLine()!)
+                
+                // If user has entered something that can't be converted to an Int, make them put in more input
+                while userInput == nil {
+                    print("Invalid input. Please enter a usable index.")
+                    userInput = Int(readLine()!)
+                }
+                // 3. Validate user input is within array bounds.
+                if userInput! >= 0 && userInput! < unavailableGames.count {
+                    // If input is valid, set index equal to user input.
+                    index = userInput!
+                } else {
+                    // If input is not valid, tell the user and let the while loop continue.
+                    print("Invalid input. Please enter a valid index.")
+                }
+            } while index == nil
+            
+            
+            // Check the selected game in.
+            unavailableGames[index!].checkedIn = true
+            
+            unavailableGames[index!].dueDate = nil // Since the game is checked in, we don't need a due date anymore, so set this equal to nil
+        }
     }
 }
+
 
