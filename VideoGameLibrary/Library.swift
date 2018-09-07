@@ -12,10 +12,11 @@ import Foundation
 class Library {
     // An array of Game objects that will be handled by this class
     private var gameArray: [Game] = [
-        Game(title: "Mario Kart"),
-        Game(title: "Fruit Ninja"),
-        Game(title: "EA Sports UFC"),
-        Game(title: "Worms")]
+        Game(title: "Mario Kart", rating: "E"),
+        Game(title: "Fruit Ninja", rating: "E"),
+        Game(title: "EA Sports UFC", rating: "T"),
+        Game(title: "Worms", rating: "E"),
+        Game(title: "Gears of War", rating: "M")]
     
     //MARK:- Functions
     
@@ -40,15 +41,28 @@ class Library {
             print("Invalid title, please try again: ")
             newGameTitle = readLine()
         }
+        
+        print("Plase enter the rating of the game: ")
+        
+        var newGameRating: String? = nil
+        
+        repeat {
+            let line = readLine()!
+            if line == "M" || line == "T" || line == "E" {
+                newGameRating = line
+            } else {
+                print("Invalid rating. Please enter a valid rating: ")
+            }
+        } while newGameRating == nil
+        
         // We need to create a new game object using that title.
-        let newGame = Game(title: newGameTitle!)
+        let newGame = Game(title: newGameTitle!, rating: newGameRating!)
         // We need to add the game to our gameArray.
         gameArray.append(newGame)
         
         // Placeholder: Since we don't have a way to list our games yet, this will go through each game and print the title
         for game in gameArray {
-            print(game.title
-            )
+            print("\(game.title) \(game.rating)")
         }
     }
     
@@ -64,7 +78,7 @@ class Library {
         
         // We need to go through our array and list out the title of the game as well as it's index. The user can then enter an index and we'll remove the game at that index.
         for index in 0..<gameArray.count { // Go through each index in the gameArray. Since arrays start at index 0, our indexes will go from 0 to 1 less than the number of elements in the array
-            print("\(index). \(gameArray[index].title)")
+            print("\(index). \(gameArray[index].title) \(gameArray[index].rating)")
         }
         print("Please enter the index of the game you wish to remove: ")
         
@@ -104,7 +118,7 @@ class Library {
         
         for game in gameArray {
             if game.checkedIn {
-                print(game.title)
+                print("\(game.title) \(game.rating)")
             }
         }
     }
@@ -132,7 +146,7 @@ class Library {
         
         for game in gameArray {
             if !game.checkedIn {
-                print(game.title)
+                print("\(game.title) \(game.rating)")
                 if let dueDate = game.dueDate {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "MM/dd/yyyy" // Setting the format we want to use for the dateFormatter. In this case, it will use 2 digits for the month, 2 digits for the day, and 4 digits for the year.
@@ -141,7 +155,6 @@ class Library {
             }
         }
     }
-    
     
     func checkGameOut() {
         //We need to go through our gameArray, list out each game and its index, and take user input for which game they want to check out.
@@ -155,7 +168,7 @@ class Library {
             
             // 1. Print out available games. We also need to set the due date for the game.
             for index in 0..<availableGames.count {
-                print("\(index). \(availableGames[index].title)")
+                print("\(index). \(availableGames[index].title) \(availableGames[index].rating)")
             }
             
             // 2. Ask the user for the index of the game to check out.
@@ -183,9 +196,9 @@ class Library {
                     // If input is not valid, tell the user and let the while loop continue.
                     print("Invalid input. Please enter a valid index.")
                 }
-            } while index == nil
+                } while index == nil
             
-            // 5. Check game in.
+            // 5. Check game out.
             
             availableGames[index!].checkedIn = false
             
@@ -210,7 +223,7 @@ class Library {
         } else {
             
             for index in 0..<unavailableGames.count {
-                print("\(index). \(unavailableGames[index].title)")
+                print("\(index). \(unavailableGames[index].title) \(unavailableGames[index].rating)")
             }
             
             // Ask the user for the index of the game to check in.
