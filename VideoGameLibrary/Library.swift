@@ -80,6 +80,7 @@ class Library {
         for index in 0..<gameArray.count { // Go through each index in the gameArray. Since arrays start at index 0, our indexes will go from 0 to 1 less than the number of elements in the array
             print("\(index). \(gameArray[index].title) \(gameArray[index].rating)")
         }
+        
         print("Please enter the index of the game you wish to remove: ")
         
         var userInput = Int(readLine()!)
@@ -165,7 +166,6 @@ class Library {
         if availableGames.count == 0 {
             print("Sorry, but there are currently no games available for checkout.")
         } else {
-            
             // 1. Print out available games. We also need to set the due date for the game.
             for index in 0..<availableGames.count {
                 print("\(index). \(availableGames[index].title) \(availableGames[index].rating)")
@@ -196,7 +196,33 @@ class Library {
                     // If input is not valid, tell the user and let the while loop continue.
                     print("Invalid input. Please enter a valid index.")
                 }
-                } while index == nil
+            } while index == nil
+            
+            if availableGames[index!].rating == "M" || availableGames[index!].rating == "T" {
+                print("You have chosen a game with a \(availableGames[index!].rating) rating. Please enter your age")
+                
+                var age = Int(readLine()!)
+                
+                while age == nil {
+                    print("Invalid input. Please enter a valid index.")
+                    age = Int(readLine()!)
+                }
+                if let age = age {
+                    if availableGames[index!].rating == "M" {
+                        if age < 17 {
+                            print("Sorry, but you are not old enough to rent this game.")
+                            menu.go()
+                        }
+                    }
+                    if availableGames[index!].rating == "T" {
+                        if age < 13 {
+                            print("Sorry, but you are not old enough to rent this game.")
+                            menu.go()
+                        }
+                    }
+                }
+            }
+            
             
             // 5. Check game out.
             
@@ -258,5 +284,7 @@ class Library {
         }
     }
 }
+
+
 
 
