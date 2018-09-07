@@ -209,14 +209,14 @@ class Library {
                 }
                 if let age = age {
                     if availableGames[index!].rating == "M" {
-                        if age < 17 {
-                            print("Sorry, but you are not old enough to rent this game.")
+                        if age < 18 {
+                            print("Sorry, but you must be 18 or older to rent this game.")
                             menu.go()
                         }
                     }
                     if availableGames[index!].rating == "T" {
                         if age < 13 {
-                            print("Sorry, but you are not old enough to rent this game.")
+                            print("Sorry, but you must be 13 or older to rent this game to rent this game.")
                             menu.go()
                         }
                     }
