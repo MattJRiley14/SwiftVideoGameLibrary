@@ -12,11 +12,11 @@ import Foundation
 class Library {
     // An array of Game objects that will be handled by this class
     private var gameArray: [Game] = [
-        Game(title: "Mario Kart", rating: "E"),
-        Game(title: "Fruit Ninja", rating: "E"),
-        Game(title: "EA Sports UFC", rating: "T"),
-        Game(title: "Worms", rating: "E"),
-        Game(title: "Gears of War", rating: "M")]
+        Game(title: "Mario Kart", rating: "E for Everyone"),
+        Game(title: "Fruit Ninja", rating: "E for Everyone"),
+        Game(title: "EA Sports UFC", rating: "T for Teen"),
+        Game(title: "Worms", rating: "E for Everyone"),
+        Game(title: "Gears of War", rating: "M for Mature")]
     
     //MARK:- Functions
     
@@ -30,8 +30,6 @@ class Library {
             enteredPassword = readLine()
         }
         
-        // When we make a new game, we need a title for the game.
-        // Prompt the user to enter in the title for the new game.
         print("Please enter the title of the game: ")
         // We need to be able to get user input for the title.
         var newGameTitle = readLine()
@@ -48,7 +46,7 @@ class Library {
         
         repeat {
             let line = readLine()!
-            if line == "M" || line == "T" || line == "E" {
+            if line == "M for Mature" || line == "T for Teen" || line == "E for Everyone" {
                 newGameRating = line
             } else {
                 print("Invalid rating. Please enter a valid rating: ")
@@ -60,7 +58,6 @@ class Library {
         // We need to add the game to our gameArray.
         gameArray.append(newGame)
         
-        // Placeholder: Since we don't have a way to list our games yet, this will go through each game and print the title
         for game in gameArray {
             print("\(game.title) \(game.rating)")
         }
@@ -108,9 +105,7 @@ class Library {
     func listAvailableGames() {
         //We need to go through our gameArray, and check to see if each game is checked out or not. If it isn't, print out the title of the game.
         
-        //        gameArray[0].checkedIn = false // This will check out the first game in the array for testing
-        
-        // 0. Get available games
+        // Get available games
         let availableGames = getAvailableGames()
         
         if availableGames.count == 0 {
@@ -137,7 +132,6 @@ class Library {
     
     func listUnavailableGames() {
         //We need to go through our gameArray, and check to see if each game is checked out or not. If it is, print out the title of the game.
-        //        gameArray[0].checkedIn = false // This will check out the first game in the array for testing
         
         let unavailableGames = getUnavailableGames()
         
@@ -160,35 +154,35 @@ class Library {
     func checkGameOut() {
         //We need to go through our gameArray, list out each game and its index, and take user input for which game they want to check out.
         
-        // 0. Get available games
+        // Get available games
         let availableGames = getAvailableGames()
         
         if availableGames.count == 0 {
             print("Sorry, but there are currently no games available for checkout.")
         } else {
-            // 1. Print out available games. We also need to set the due date for the game.
+            // Print out available games.
             for index in 0..<availableGames.count {
                 print("\(index). \(availableGames[index].title) \(availableGames[index].rating)")
             }
             
-            // 2. Ask the user for the index of the game to check out.
+            // Ask the user for the index of the game to check out.
             print("Please enter the index of the game you wish to check out: ")
             
-            // 3. Getting user input
+            // Getting user input
             var index: Int? = nil
             
-            // 4. Validate user input
+            // Validate user input
             repeat {
-                // 1. Get user input
+                // Get user input
                 var userInput = Int(readLine()!)
                 
-                // 2. Validate user input is an Int
+                // Validate user input is an Int
                 while userInput == nil {
                     print("Invalid input. Please enter a valid index.")
                     userInput = Int(readLine()!)
                 }
                 
-                // 3. Validate user input is within array bounds.
+                // Validate user input is within array bounds.
                 if userInput! >= 0 && userInput! < availableGames.count {
                     // If input is valid, set index equal to user input.
                     index = userInput!
@@ -198,7 +192,7 @@ class Library {
                 }
             } while index == nil
             
-            if availableGames[index!].rating == "M" || availableGames[index!].rating == "T" {
+            if availableGames[index!].rating == "M for Mature" || availableGames[index!].rating == "T for Teen" {
                 print("You have chosen a game with a \(availableGames[index!].rating) rating. Please enter your age")
                 
                 var age = Int(readLine()!)
@@ -208,23 +202,20 @@ class Library {
                     age = Int(readLine()!)
                 }
                 if let age = age {
-                    if availableGames[index!].rating == "M" {
+                    if availableGames[index!].rating == "M for Mature" {
                         if age < 18 {
                             print("Sorry, but you must be 18 or older to rent this game.")
-                            menu.go()
+                            return
                         }
                     }
-                    if availableGames[index!].rating == "T" {
+                    if availableGames[index!].rating == "T for Teen" {
                         if age < 13 {
                             print("Sorry, but you must be 13 or older to rent this game to rent this game.")
-                            menu.go()
+                            return
                         }
                     }
                 }
             }
-            
-            
-            // 5. Check game out.
             
             availableGames[index!].checkedIn = false
             
@@ -258,7 +249,7 @@ class Library {
             var index: Int? = nil
             
             repeat {
-                // Ge the input from the user and validate it.
+                // Get the input from the user and validate it.
                 var userInput = Int(readLine()!)
                 
                 // If user has entered something that can't be converted to an Int, make them put in more input
@@ -266,7 +257,7 @@ class Library {
                     print("Invalid input. Please enter a usable index.")
                     userInput = Int(readLine()!)
                 }
-                // 3. Validate user input is within array bounds.
+                // Validate user input is within array bounds.
                 if userInput! >= 0 && userInput! < unavailableGames.count {
                     // If input is valid, set index equal to user input.
                     index = userInput!

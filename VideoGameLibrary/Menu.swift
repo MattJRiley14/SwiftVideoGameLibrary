@@ -88,9 +88,9 @@ class Menu {
             library.listUnavailableGames() // Call the library's listUnavailableGames function
             help() // Show the menu again
         case "7": // if input == 7
-            help()
+            help() // Show the menu
         case "8": // if input == 8
-            quit()
+            quit() // Call the quit function
         default: // if input is anything else
             break
         }
@@ -99,12 +99,9 @@ class Menu {
     func quit() {
         print("Are you sure you would like to quit? Y or N?")
         let input = readLine()!
-        
         if input.lowercased() == "y" {
             shouldQuit = true
             print("Thanks for using the video game library")
-        } else if input.lowercased() != "y" {
-            go()
         }
     }
     
