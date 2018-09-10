@@ -165,7 +165,7 @@ class Library {
         let availableGames = getAvailableGames()
         
         if availableGames.count == 0 {
-            print("Sorry, but there are currently no games available for checkout.")
+            print("There are currently no games available for checkout.")
         } else {
             // Print out available games.
             for index in 0..<availableGames.count {
@@ -243,7 +243,7 @@ class Library {
         let unavailableGames = getUnavailableGames()
         
         if unavailableGames.count == 0 {
-            print("Sorry, but there are currently no games checked out.")
+            print("There are currently no games checked out.")
         } else {
             
             for index in 0..<unavailableGames.count {
