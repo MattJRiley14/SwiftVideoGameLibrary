@@ -40,7 +40,7 @@ class Library {
             newGameTitle = readLine()
         }
         
-        print("Please enter the rating of the game: ")
+        print("Please enter the rating of the game (Example: E for Everyone): ")
         
         var newGameRating: String? = nil
         
