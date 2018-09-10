@@ -12,11 +12,11 @@ import Foundation
 class Library {
     // An array of Game objects that will be handled by this class
     private var gameArray: [Game] = [
-        Game(title: "Mario Kart", rating: "E"),
-        Game(title: "Fruit Ninja", rating: "E"),
-        Game(title: "EA Sports UFC", rating: "T"),
-        Game(title: "Worms", rating: "E"),
-        Game(title: "Gears of War", rating: "M")]
+        Game(title: "Mario Kart", rating: "E for Everyone"),
+        Game(title: "Fruit Ninja", rating: "E for Everyone"),
+        Game(title: "EA Sports UFC", rating: "T for Teen"),
+        Game(title: "Worms", rating: "E for Everyone"),
+        Game(title: "Gears of War", rating: "M for Mature")]
     
     //MARK:- Functions
     
@@ -41,14 +41,20 @@ class Library {
             newGameTitle = readLine()
         }
         
-        print("Please enter the rating of the game (Example: E): ")
+        print("Please enter the rating of the game (E, T, or M): ")
         
         var newGameRating: String? = nil
         
         repeat {
-            let line = readLine()!
+            let line = readLine()!.uppercased()
             if line == "M" || line == "T" || line == "E" {
-                newGameRating = line
+                if line == "M" {
+                    newGameRating = "M for Mature"
+                } else if line == "T" {
+                    newGameRating = "T for Teen"
+                } else {
+                    newGameRating = "E for Everyone"
+                }
             } else {
                 print("Invalid rating. Please enter a valid rating: ")
             }
@@ -60,7 +66,7 @@ class Library {
         gameArray.append(newGame)
         
         for game in gameArray {
-            print("\(game.title) Rated: \(game.rating)")
+            print("\(game.title) (Rated: \(game.rating))")
         }
     }
     
@@ -76,7 +82,7 @@ class Library {
         
         // We need to go through our array and list out the title of the game as well as it's index. The user can then enter an index and we'll remove the game at that index.
         for index in 0..<gameArray.count { // Go through each index in the gameArray. Since arrays start at index 0, our indexes will go from 0 to 1 less than the number of elements in the array
-            print("\(index). \(gameArray[index].title) Rated: \(gameArray[index].rating)")
+            print("\(index). \(gameArray[index].title) (Rated: \(gameArray[index].rating))")
         }
         
         print("Please enter the index of the game you wish to remove: ")
@@ -115,7 +121,7 @@ class Library {
         
         for game in gameArray {
             if game.checkedIn {
-                print("\(game.title) Rated: \(game.rating)")
+                print("\(game.title) (Rated: \(game.rating))")
             }
         }
     }
@@ -142,7 +148,7 @@ class Library {
         
         for game in gameArray {
             if !game.checkedIn {
-                print("\(game.title) Rated: \(game.rating)")
+                print("\(game.title) (Rated: \(game.rating))")
                 if let dueDate = game.dueDate {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "MM/dd/yyyy" // Setting the format we want to use for the dateFormatter. In this case, it will use 2 digits for the month, 2 digits for the day, and 4 digits for the year.
@@ -163,7 +169,7 @@ class Library {
         } else {
             // Print out available games.
             for index in 0..<availableGames.count {
-                print("\(index). \(availableGames[index].title) Rated: \(availableGames[index].rating)")
+                print("\(index). \(availableGames[index].title) (Rated: \(availableGames[index].rating))")
             }
             
             // Ask the user for the index of the game to check out.
@@ -241,7 +247,7 @@ class Library {
         } else {
             
             for index in 0..<unavailableGames.count {
-                print("\(index). \(unavailableGames[index].title) Rated: \(unavailableGames[index].rating)")
+                print("\(index). \(unavailableGames[index].title) (Rated: \(unavailableGames[index].rating))")
             }
             
             // Ask the user for the index of the game to check in.
@@ -276,7 +282,3 @@ class Library {
         }
     }
 }
-
-
-
-
