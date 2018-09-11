@@ -26,7 +26,7 @@ class Library {
         
         var enteredPassword = readLine()
         
-        while enteredPassword != "Izaak" {
+        while enteredPassword != "Wendy" {
             print("Incorrect password")
             enteredPassword = readLine()
         }
@@ -75,7 +75,7 @@ class Library {
         
         var enteredPassword = readLine()
         
-        while enteredPassword != "Christian" {
+        while enteredPassword != "Wendy" {
             print("Incorrect password")
             enteredPassword = readLine()
         }
