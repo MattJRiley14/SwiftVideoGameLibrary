@@ -20,7 +20,6 @@ class Library {
     
     //MARK:- Functions
     
-
     func addGame() {
         print("Please enter password: ")
         
@@ -35,8 +34,8 @@ class Library {
         // We need to be able to get user input for the title.
         var newGameTitle = readLine()
         
-        // We need to add input validation to make sure that the newGameTitle isn't nil or an empty string
-        while newGameTitle == nil || newGameTitle == "" {
+        // We need to add input validation to make sure that the newGameTitle isn't an empty string
+        while newGameTitle == "" {
             print("Invalid title, please try again: ")
             newGameTitle = readLine()
         }
@@ -60,7 +59,7 @@ class Library {
             }
         } while newGameRating == nil
         
-        // We need to create a new game object using that title.
+        // We need to create a new game object using that title & rating.
         let newGame = Game(title: newGameTitle!, rating: newGameRating!)
         // We need to add the game to our gameArray.
         gameArray.append(newGame)
@@ -149,6 +148,7 @@ class Library {
         for game in gameArray {
             if !game.checkedIn {
                 print("\(game.title) (Rated: \(game.rating))")
+                
                 if let dueDate = game.dueDate {
                     let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "MM/dd/yyyy" // Setting the format we want to use for the dateFormatter. In this case, it will use 2 digits for the month, 2 digits for the day, and 4 digits for the year.
@@ -245,7 +245,6 @@ class Library {
         if unavailableGames.count == 0 {
             print("There are currently no games checked out.")
         } else {
-            
             for index in 0..<unavailableGames.count {
                 print("\(index). \(unavailableGames[index].title) (Rated: \(unavailableGames[index].rating))")
             }
@@ -282,3 +281,8 @@ class Library {
         }
     }
 }
+
+
+
+
+

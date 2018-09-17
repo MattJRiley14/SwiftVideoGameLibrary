@@ -36,16 +36,13 @@ class Menu {
         help()
         
         repeat {
-            
             var input = getInput()
             
             while validateInput(input) == false {
                 print("Invalid input")
                 input = getInput()
             }
-            
             handleInput(input)
-            
         } while !shouldQuit
     }
     
@@ -128,6 +125,19 @@ class Menu {
         return input!
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

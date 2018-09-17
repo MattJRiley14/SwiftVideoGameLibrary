@@ -22,12 +22,13 @@ class Game {
     // Optional because if a game isn't checked out, then it shouldn't have a due date
     var dueDate: Date?
     
-    // Since checkedIn has a default value and dueDate is an optional, the only value that we have to initialize is the title
+    // Since checkedIn has a default value and dueDate is an optional, the only value that we have to initialize is the title & rating
     init(title: String, rating: String) {
         self.title = title
         self.rating = rating
     }
 }
+
 
 
 
