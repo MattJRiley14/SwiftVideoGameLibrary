@@ -196,7 +196,7 @@ class Library {
                 }
             } while index == nil
             
-            if availableGames[index!].rating == "M" || availableGames[index!].rating == "T" {
+            if availableGames[index!].rating == "M for Mature" || availableGames[index!].rating == "T for Teen" {
                 print("You have chosen a game with a \(availableGames[index!].rating) rating. Please enter your age")
                 
                 var age = Int(readLine()!)
@@ -206,13 +206,13 @@ class Library {
                     age = Int(readLine()!)
                 }
                 if let age = age {
-                    if availableGames[index!].rating == "M" {
+                    if availableGames[index!].rating == "M for Mature" {
                         if age < 18 {
                             print("Sorry, but you must be 18 or older to rent this game.")
                             return
                         }
                     }
-                    if availableGames[index!].rating == "T" {
+                    if availableGames[index!].rating == "T for Teen" {
                         if age < 13 {
                             print("Sorry, but you must be 13 or older to rent this game to rent this game.")
                             return
