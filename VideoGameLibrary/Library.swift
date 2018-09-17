@@ -64,9 +64,6 @@ class Library {
         // We need to add the game to our gameArray.
         gameArray.append(newGame)
         
-        for game in gameArray {
-            print("\(game.title) (Rated: \(game.rating))")
-        }
     }
     
     func removeGame() {
