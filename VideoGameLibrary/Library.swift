@@ -83,15 +83,25 @@ class Library {
         
         print("Please enter the index of the game you wish to remove: ")
         
-        var userInput = Int(readLine()!)
+        var index: Int? = nil
+        
+        repeat {
+            var userInput = Int(readLine()!)
         
         // If user has entered something that can't be converted to an Int, make them put in more input
         while userInput == nil {
-            print("Invalid input. Please enter a usable index.")
+            print("Invalid input. Please enter a valid index.")
             userInput = Int(readLine()!)
         }
+            if userInput! >= 0 && userInput! < gameArray.count {
+                index = userInput!
+            } else {
+                print("Please enter a valid index")
+            }
+    } while index == nil
+        
         // Removing the game at the index the user specified
-        gameArray.remove(at: userInput!)
+        gameArray.remove(at: index!)
     }
     
     func getAvailableGames() -> [Game] {
